@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SushiJoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;color:#333;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;}
+h1,h2,h3,h4,h5,h6{font-family:'Crimson Pro',serif;line-height:1.2;}
+a{text-decoration:none;color:inherit;}
+.container{width:90%;max-width:1200px;margin:0 auto;}
+.btn{display:inline-block;padding:16px 35px;font-weight:600;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.3s ease;font-size:14px;letter-spacing:1px;text-align:center;}
+.btn-accent{background-color:#fb3c22;color:white;}
+.btn-white{background-color:white;color:#333;}
+.btn-outline{border:1px solid #000;color:#000;background:transparent;font-weight:400;}
+header{position:absolute;width:100%;z-index:100;}
+.header-container{display:flex;justify-content:space-between;align-items:center;padding:20px 0;}
+.logo{font-family:'Crimson Pro',serif;font-size:24px;font-weight:600;color:white;display:flex;align-items:center;gap:8px;}
+.logo-icon{color:#fb3c22;}
+.nav-desktop{display:flex;gap:30px;}
+.nav-desktop a{color:white;font-weight:500;}
+.menu-icon{display:none;flex-direction:column;gap:6px;cursor:pointer;}
+.menu-line{width:25px;height:2px;background-color:white;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:white;z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:30px;}
+.mobile-menu a{color:#333;font-size:16px;font-weight:300;text-transform:uppercase;letter-spacing:1px;}
+.close-menu{position:absolute;top:30px;right:30px;color:#333;font-size:18px;cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #333;display:flex;align-items:center;justify-content:center;}
+.hero{position:relative;padding:200px 0 150px;background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.4)),url('https://res.cloudinary.com/dqhawdcol/image/upload/v1759837084/khqwqyndzh9vmtdaplie.jpg') no-repeat center center/cover;color:white;text-align:center;}
+.hero-content{max-width:700px;margin:0 auto;}
+.preheader{color:#fb3c22;font-size:14px;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+.hero h1{font-size:48px;margin-bottom:20px;}
+.hero p{font-size:18px;margin-bottom:30px;font-weight:300;}
+.hero-buttons{display:flex;gap:15px;justify-content:center;}
+.menu-section{padding:100px 0;background:white;}
+.menu-content{max-width:1000px;margin:0 auto;text-align:left;}
+.menu-section h2{font-size:42px;margin-bottom:20px;color:#333;}
+.menu-section p{font-size:18px;margin-bottom:40px;font-weight:300;color:#666;}
+.menu-buttons{display:flex;gap:15px;justify-content:flex-start;}
+.menu-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:60px;margin-top:60px;}
+.menu-card{border-bottom:1px solid #eee;padding-bottom:30px;display:flex;justify-content:space-between;align-items:flex-end;transition:all 0.3s ease;text-align:left;}
+.menu-card:hover{transform:translateY(-5px);}
+.menu-card-content{flex:1;}
+.menu-card h3{font-size:24px;margin-bottom:10px;color:#333;}
+.menu-card p{font-size:16px;color:#666;margin-bottom:0;line-height:1.5;}
+.menu-card-arrow{width:40px;height:40px;border-radius:50%;border:1px solid #000;background-color:transparent;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;flex-shrink:0;margin-left:20px;}
+.menu-card:hover .menu-card-arrow{background-color:#fb3c22;border-color:#fb3c22;color:white;}
+.about-section{padding:100px 0;background:white;}
+.about-content{max-width:1000px;margin:0 auto;text-align:left;}
+.about-section h2{font-size:42px;margin-bottom:20px;color:#333;}
+.about-section p{font-size:18px;margin-bottom:40px;font-weight:300;color:#666;}
+.about-images{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-bottom:40px;}
+.about-image{aspect-ratio:4/3;overflow:hidden;}
+.about-image img{width:100%;height:100%;object-fit:cover;}
+.contact-info{text-align:left;}
+.contact-info h3{font-size:24px;margin-bottom:20px;color:#333;}
+.contact-details{display:flex;gap:40px;flex-wrap:wrap;}
+.contact-detail{font-size:16px;color:#666;}
+.cta-section{position:relative;padding:150px 0;background:url('https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/sndib3pgak6z8oiuteni.jpg') no-repeat center center/cover;color:white;}
+.cta-overlay{position:absolute;top:0;left:0;width:100%;height:100%;}
+.cta-content{position:relative;z-index:2;max-width:1000px;margin:0 auto;text-align:left;}
+.cta-section h2{font-size:42px;margin-bottom:20px;}
+.cta-section p{font-size:18px;margin-bottom:40px;font-weight:300;max-width:600px;}
+.cta-buttons{display:flex;gap:15px;}
+.reservation-section{background-color:#000;padding:100px 0;}
+.reservation-container{max-width:1000px;margin:0 auto;}
+.reservation-section h2{font-size:42px;margin-bottom:20px;color:white;text-align:center;}
+.reservation-section p{font-size:18px;margin-bottom:40px;font-weight:300;color:#ccc;text-align:center;max-width:600px;margin-left:auto;margin-right:auto;}
+.reservation-form{background-color:white;padding:50px;border-radius:0;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.form-group{display:flex;flex-direction:column;}
+.form-group label{font-weight:300;margin-bottom:8px;color:#666;text-transform:uppercase;letter-spacing:1px;}
+.form-group input,.form-group select,.form-group textarea{padding:12px;border:none;border-bottom:1px solid #ddd;border-radius:0;font-family:'Inter',sans-serif;background-color:transparent;width:100%;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-bottom:1px solid #fb3c22;}
+.form-group textarea{min-height:120px;resize:vertical;}
+.submit-btn{background-color:#fb3c22;color:white;border:none;padding:16px 35px;cursor:pointer;text-transform:uppercase;font-weight:600;letter-spacing:1px;width:100%;margin-top:10px;}
+.review-section{padding:100px 0;background:white;}
+.review-container{max-width:1000px;margin:0 auto;}
+.review-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px;}
+.review-header h2{font-size:42px;color:#333;margin:0;}
+.review-header p{font-size:18px;font-weight:300;color:#666;max-width:600px;}
+.review-nav{display:flex;gap:15px;}
+.review-nav-btn{width:50px;height:50px;border-radius:50%;border:1px solid #333;background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;}
+.next-btn{background:#fb3c22;border-color:#fb3c22;color:white;}
+.review-nav-btn:hover{background:#fb3c22;border-color:#fb3c22;color:white;}
+.review-slider{position:relative;overflow:hidden;}
+.review-track{display:flex;transition:transform 0.5s ease;}
+.review-slide{min-width:100%;display:flex;gap:50px;align-items:center;}
+.review-image{flex:1;aspect-ratio:1;overflow:hidden;}
+.review-image img{width:100%;height:100%;object-fit:cover;}
+.review-content{flex:1;}
+.review-text{font-size:18px;font-style:italic;margin-bottom:30px;color:#666;line-height:1.8;}
+.review-author{font-weight:600;color:#333;}
+.blog-section{padding:100px 0;background:white;}
+.blog-container{max-width:1000px;margin:0 auto;}
+.blog-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px;}
+.blog-header-content{flex:1;}
+.blog-header h2{font-size:42px;color:#333;margin-bottom:20px;}
+.blog-header p{font-size:18px;font-weight:300;color:#666;max-width:600px;}
+.blog-header .btn-outline{border:1px solid #000;color:#000;background:transparent;}
+.blog-article{background:white;}
+.blog-image{aspect-ratio:4/3;overflow:hidden;}
+.blog-image img{width:100%;height:100%;object-fit:cover;}
+.blog-content{padding:30px 0;}
+.blog-meta{display:flex;gap:10px;margin-bottom:10px;font-size:14px;color:#999;font-weight:300;text-transform:uppercase;}
+.blog-type{color:#999;}
+.blog-date{color:#999;}
+.blog-title{font-size:24px;color:#333;margin-bottom:15px;}
+main{flex:1;}
+footer{background-color:#000;padding:60px 0 20px;color:white;}
+.footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-bottom:40px;}
+.footer-logo{font-family:'Crimson Pro',serif;font-size:24px;font-weight:600;margin-bottom:15px;color:white;display:flex;align-items:center;gap:8px;}
+.footer-logo-icon{color:#fb3c22;}
+.footer-about{font-weight:300;line-height:1.8;margin-bottom:20px;color:#ccc;}
+.subscribe-form{display:flex;margin-top:15px;}
+.subscribe-input{flex:1;padding:12px 0;border:none;border-bottom:1px solid #444;font-family:'Inter',sans-serif;background:transparent;color:white;}
+.subscribe-input::placeholder{color:#999;}
+.subscribe-btn{background-color:#fb3c22;color:white;border:none;padding:16px 35px;cursor:pointer;text-transform:uppercase;font-weight:600;letter-spacing:1px;}
+.footer-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;}
+.footer-nav-column h3{font-size:18px;margin-bottom:15px;color:white;}
+.footer-nav-column a{display:block;margin-bottom:10px;color:#ccc;font-weight:300;transition:color 0.3s;}
+.footer-nav-column a:hover{color:#fb3c22;}
+.instagram-section{margin:40px 0;}
+.instagram-section h3{text-align:left;margin-bottom:20px;font-size:24px;color:white;}
+.instagram-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;}
+.instagram-post{aspect-ratio:1;overflow:hidden;}
+.instagram-post img{width:100%;height:100%;object-fit:cover;}
+.footer-bottom{border-top:1px solid #444;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.social-icons{display:flex;gap:15px;}
+.social-icons a{color:#ccc;font-size:18px;transition:color 0.3s;}
+.social-icons a:hover{color:#fb3c22;}
+.copyright{color:#ccc;font-size:14px;}
+@media (max-width:768px){
+.nav-desktop{display:none;}
+.menu-icon{display:flex;}
+.hero{padding:150px 0 100px;}
+.hero h1{font-size:36px;}
+.hero-buttons{flex-direction:column;align-items:center;width:100%;}
+.hero-buttons .btn{width:100%;max-width:300px;}
+.btn-white{font-weight:400;}
+.menu-section{padding:80px 0;}
+.menu-section h2{font-size:36px;}
+.menu-buttons{flex-direction:column;align-items:center;width:100%;}
+.menu-buttons .btn{width:100%;max-width:300px;}
+.menu-cards{grid-template-columns:1fr;gap:20px;}
+.about-section{padding:80px 0;}
+.about-section h2{font-size:36px;}
+.about-images{grid-template-columns:1fr;gap:20px;}
+.contact-details{flex-direction:column;gap:15px;}
+.cta-section{padding:100px 0;}
+.cta-section h2{font-size:36px;}
+.cta-buttons{flex-direction:column;align-items:center;width:100%;}
+.cta-buttons .btn{width:100%;max-width:300px;}
+.reservation-section{padding:80px 0;}
+.reservation-section h2{font-size:36px;}
+.form-row{grid-template-columns:1fr;}
+.review-section{padding:80px 0;}
+.review-header{flex-direction:column;align-items:flex-start;gap:20px;}
+.review-header h2{font-size:36px;}
+.review-nav{align-self:flex-start;}
+.review-slide{flex-direction:column;gap:30px;}
+.blog-section{padding:80px 0;}
+.blog-header{flex-direction:column;align-items:flex-start;gap:20px;}
+.blog-header h2{font-size:36px;}
+.subscribe-form{flex-direction:column;gap:15px;}
+.subscribe-btn{width:100%;}
+.footer-bottom{flex-direction:column;text-align:center;}
+}
+@media (min-width:769px){
+.cta-overlay{background:linear-gradient(to right,rgba(0,0,0,0.8),rgba(0,0,0,0.3));}
+}
+@media (max-width:768px){
+.cta-overlay{background:linear-gradient(to bottom,rgba(0,0,0,0.8),rgba(0,0,0,0.3));}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="container header-container">
+<nav class="nav-desktop">
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Blog</a>
+</nav>
+<a href="#" class="logo"><i class="fas fa-fish logo-icon"></i>SushiJoint</a>
+<nav class="nav-desktop">
+<a href="#">Menu</a>
+<a href="#">Delivery</a>
+<a href="#">Contact</a>
+</nav>
+<div class="menu-icon">
+<div class="menu-line"></div>
+<div class="menu-line"></div>
+</div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<div class="close-menu"><i class="fas fa-times"></i></div>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Blog</a>
+<a href="#">Menu</a>
+<a href="#">Delivery</a>
+<a href="#">Contact</a>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container hero-content">
+<div class="preheader">Welcome to SushiJoint</div>
+<h1>Experience Authentic Japanese Cuisine</h1>
+<p>Welcome to SushiJoint, the premier destination for exquisite sushi in Abuja. We combine traditional techniques with fresh, locally-sourced ingredients to create unforgettable dining experiences.</p>
+<div class="hero-buttons">
+<a href="#" class="btn btn-accent">RESERVE TABLE</a>
+<a href="#" class="btn btn-white">BROWSE MENU</a>
+</div>
+</div>
+</section>
+<section class="menu-section">
+<div class="container menu-content">
+<h2>Explore Our Menu</h2>
+<p>Discover our carefully crafted selection of traditional and modern Japanese dishes, made with the finest ingredients and expert techniques that bring out the authentic flavors of Japan.</p>
+<div class="menu-buttons">
+<a href="#" class="btn btn-accent">ORDER NOW</a>
+<a href="#" class="btn btn-outline">BOOK TABLE</a>
+</div>
+<div class="menu-cards">
+<a href="#" class="menu-card">
+<div class="menu-card-content">
+<h3>Breakfast</h3>
+<p>Start your day with our authentic Japanese breakfast sets featuring traditional dishes</p>
+</div>
+<div class="menu-card-arrow">
+<i class="fas fa-chevron-right"></i>
+</div>
+</a>
+<a href="#" class="menu-card">
+<div class="menu-card-content">
+<h3>Main Dishes</h3>
+<p>Explore our extensive selection of sushi, sashimi, and traditional Japanese main courses</p>
+</div>
+<div class="menu-card-arrow">
+<i class="fas fa-chevron-right"></i>
+</div>
+</a>
+<a href="#" class="menu-card">
+<div class="menu-card-content">
+<h3>Drinks</h3>
+<p>Complement your meal with our selection of sake, Japanese beers, and specialty drinks</p>
+</div>
+<div class="menu-card-arrow">
+<i class="fas fa-chevron-right"></i>
+</div>
+</a>
+<a href="#" class="menu-card">
+<div class="menu-card-content">
+<h3>Dessert</h3>
+<p>Finish your meal with our delightful Japanese-inspired desserts and sweet treats</p>
+</div>
+<div class="menu-card-arrow">
+<i class="fas fa-chevron-right"></i>
+</div>
+</a>
+</div>
+</div>
+</section>
+<section class="about-section">
+<div class="container about-content">
+<h2>About SushiJoint</h2>
+<p>For over a decade, SushiJoint has been serving Abuja's finest Japanese cuisine, blending traditional techniques with modern culinary artistry to create unforgettable dining experiences.</p>
+<div class="about-images">
+<div class="about-image">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759843992/htxzqgvvyqwqasdmshcy.jpg" alt="Restaurant interior">
+</div>
+<div class="about-image">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759843992/eqgtmxg9q7vcexis5bft.jpg" alt="Sushi preparation">
+</div>
+</div>
+<div class="contact-info">
+<h3>Visit Us</h3>
+<div class="contact-details">
+<div class="contact-detail">ABUJA, NIGERIA</div>
+<div class="contact-detail"><a href="tel:+2348000000000">+234 800 000 0000</a></div>
+<div class="contact-detail"><a href="mailto:info@sushijoint.com">info@sushijoint.com</a></div>
+</div>
+</div>
+</div>
+</section>
+<section class="cta-section">
+<div class="cta-overlay"></div>
+<div class="container cta-content">
+<h2>Ready to Experience Excellence?</h2>
+<p>Join us for an unforgettable culinary journey through the finest Japanese cuisine in Abuja. Reserve your table today or explore our menu.</p>
+<div class="cta-buttons">
+<a href="#" class="btn btn-accent">ORDER ONLINE</a>
+<a href="#" class="btn btn-white" style="border:1px solid #fff;color:#fff;background-color:transparent;">BROWSE MENU</a>
+</div>
+</div>
+</section>
+<section class="reservation-section">
+<div class="container reservation-container">
+<h2>Make a Reservation</h2>
+<p>Book your table at SushiJoint for an unforgettable dining experience. We look forward to serving you.</p>
+<form class="reservation-form">
+<div class="form-row">
+<div class="form-group">
+<label for="fullName">FULL NAME</label>
+<input type="text" id="fullName" name="fullName" required>
+</div>
+<div class="form-group">
+<label for="email">EMAIL ADDRESS</label>
+<input type="email" id="email" name="email" required>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="phone">PHONE NUMBER</label>
+<input type="tel" id="phone" name="phone" required>
+</div>
+<div class="form-group">
+<label for="location">LOCATION</label>
+<select id="location" name="location" required>
+<option value="">Select a location</option>
+<option value="main">Main Restaurant</option>
+<option value="terrace">Terrace</option>
+<option value="private">Private Dining</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="date">DATE</label>
+<input type="date" id="date" name="date" required>
+</div>
+<div class="form-group">
+<label for="time">TIME</label>
+<input type="time" id="time" name="time" required>
+</div>
+</div>
+<div class="form-group">
+<label for="notes">ADDITIONAL NOTES</label>
+<textarea id="notes" name="notes" placeholder="Any special requests or dietary requirements..."></textarea>
+</div>
+<button type="submit" class="submit-btn">RESERVE TABLE</button>
+</form>
+</div>
+</section>
+<section class="review-section">
+<div class="container review-container">
+<div class="review-header">
+<div class="review-header-content">
+<h2>What Customers Are Saying</h2>
+<p>Discover why our customers keep coming back for more authentic Japanese dining experiences at SushiJoint.</p>
+</div>
+<div class="review-nav">
+<button class="review-nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+<button class="review-nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+</div>
+</div>
+<div class="review-slider">
+<div class="review-track">
+<div class="review-slide">
+<div class="review-image">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/sndib3pgak6z8oiuteni.jpg" alt="Sushi dish">
+</div>
+<div class="review-content">
+<div class="review-text">"The most authentic Japanese experience in Abuja! The sushi was fresh and beautifully presented. The service was exceptional and the atmosphere was perfect for our anniversary dinner."</div>
+<div class="review-author">- Sarah Johnson</div>
+</div>
+</div>
+<div class="review-slide">
+<div class="review-image">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/fjghaozgd8ggkicbzdrw.jpg" alt="Sushi platter">
+</div>
+<div class="review-content">
+<div class="review-text">"Absolutely incredible! Every bite was a delight. The chefs are true artists and the quality of ingredients is outstanding. Will definitely be coming back regularly!"</div>
+<div class="review-author">- Michael Chen</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="blog-section">
+<div class="container blog-container">
+<div class="blog-header">
+<div class="blog-header-content">
+<h2>Latest from Our Blog</h2>
+<p>Stay updated with the latest culinary insights, recipes, and news from SushiJoint's kitchen.</p>
+</div>
+<a href="#" class="btn btn-outline">ALL ARTICLES</a>
+</div>
+<div class="blog-article">
+<div class="blog-image">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/sndib3pgak6z8oiuteni.jpg" alt="Sushi making">
+</div>
+<div class="blog-content">
+<div class="blog-meta">
+<div class="blog-type">CULINARY TIPS</div>
+<div class="blog-date">- JUNE 15, 2023</div>
+</div>
+<h3 class="blog-title">The Art of Perfect Sushi Rice: A Chef's Guide</h3>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="container">
+<div class="footer-content">
+<div class="footer-about">
+<a href="#" class="footer-logo"><i class="fas fa-fish footer-logo-icon"></i>SushiJoint</a>
+<p>SushiJoint is Abuja's top-rated Japanese restaurant, offering an authentic sushi experience with the freshest ingredients. Our skilled chefs create masterpieces that delight both the eyes and palate.</p>
+<form class="subscribe-form">
+<input type="email" class="subscribe-input" placeholder="Enter your email">
+<button type="submit" class="subscribe-btn">Subscribe</button>
+</form>
+</div>
+<div class="footer-nav">
+<div class="footer-nav-column">
+<h3>Navigation</h3>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Menu</a>
+<a href="#">Blog</a>
+</div>
+<div class="footer-nav-column">
+<h3>Support</h3>
+<a href="#">Contact</a>
+<a href="#">Delivery</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+<div class="instagram-section">
+<h3>Follow our Instagram</h3>
+<div class="instagram-posts">
+<div class="instagram-post">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/sndib3pgak6z8oiuteni.jpg" alt="Instagram post">
+</div>
+<div class="instagram-post">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/fjghaozgd8ggkicbzdrw.jpg" alt="Instagram post">
+</div>
+<div class="instagram-post">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/sndib3pgak6z8oiuteni.jpg" alt="Instagram post">
+</div>
+<div class="instagram-post">
+<img src="https://res.cloudinary.com/dqhawdcol/image/upload/v1759836613/fjghaozgd8ggkicbzdrw.jpg" alt="Instagram post">
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="social-icons">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+<div class="copyright">© <span id="currentYear"></span> SushiJoint. All Rights Reserved.</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+const menuIcon=document.querySelector('.menu-icon');
+const mobileMenu=document.getElementById('mobileMenu');
+const closeMenu=document.querySelector('.close-menu');
+const currentYear=document.getElementById('currentYear');
+const track=document.querySelector('.review-track');
+const slides=document.querySelectorAll('.review-slide');
+const prevBtn=document.querySelector('.prev-btn');
+const nextBtn=document.querySelector('.next-btn');
+let currentSlide=0;
+menuIcon.addEventListener('click',function(){
+mobileMenu.style.display='flex';
+});
+closeMenu.addEventListener('click',function(){
+mobileMenu.style.display='none';
+});
+currentYear.textContent=new Date().getFullYear();
+function updateSlider(){
+track.style.transform=`translateX(-${currentSlide*100}%)`;
+}
+nextBtn.addEventListener('click',function(){
+currentSlide=(currentSlide+1)%slides.length;
+updateSlider();
+});
+prevBtn.addEventListener('click',function(){
+currentSlide=(currentSlide-1+slides.length)%slides.length;
+updateSlider();
+});
+setInterval(function(){
+currentSlide=(currentSlide+1)%slides.length;
+updateSlider();
+},5000);
+});
+</script>
+</body>
+</html>
